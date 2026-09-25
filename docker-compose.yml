@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: syncspace-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: syncspace
+      POSTGRES_PASSWORD: syncspace_12345
+      POSTGRES_DB: syncspace
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
