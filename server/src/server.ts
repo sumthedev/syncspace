@@ -1,21 +1,22 @@
 import "dotenv/config";
 import express from "express";
 import { pool } from "./db/index.js";
+import usersRouter from "./routes/user.js";
 
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+// Middleware
 app.use(express.json());
+
+// Routes
+app.use("/api/users", usersRouter);
 
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
   });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 app.get("/api/db-health", async (req, res) => {
@@ -35,4 +36,8 @@ app.get("/api/db-health", async (req, res) => {
       database: "disconnected",
     });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
